@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.Services", "Maerk.SortingSystem.Services\Maerk.SortingSystem.Services.csproj", "{286760BA-C3B5-4182-9E0C-AF658FBE95CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.Dtos", "Maerk.SortingSystem.Dtos\Maerk.SortingSystem.Dtos.csproj", "{1BE89CDD-2959-4635-AFF7-76905AAA47BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.DataAccess", "Maerk.SortingSystem.DataAccess\Maerk.SortingSystem.DataAccess.csproj", "{443C0C04-F60E-431B-B048-3970BD2FF006}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.Web.Api", "Maerk.SortingSystem.Web.Api\Maerk.SortingSystem.Web.Api.csproj", "{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{286760BA-C3B5-4182-9E0C-AF658FBE95CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286760BA-C3B5-4182-9E0C-AF658FBE95CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286760BA-C3B5-4182-9E0C-AF658FBE95CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286760BA-C3B5-4182-9E0C-AF658FBE95CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE89CDD-2959-4635-AFF7-76905AAA47BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE89CDD-2959-4635-AFF7-76905AAA47BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE89CDD-2959-4635-AFF7-76905AAA47BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE89CDD-2959-4635-AFF7-76905AAA47BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{443C0C04-F60E-431B-B048-3970BD2FF006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{443C0C04-F60E-431B-B048-3970BD2FF006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{443C0C04-F60E-431B-B048-3970BD2FF006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{443C0C04-F60E-431B-B048-3970BD2FF006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5FE2C0F-4B0A-4003-B0C9-8202BB55FC4E}
+	EndGlobalSection
+EndGlobal
