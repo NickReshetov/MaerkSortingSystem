@@ -11,12 +11,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Maerk.SortingSystem.Worker
 {    
-    public class WorkerService : IWorkerService
+    public class Worker : IWorker
     {
         private readonly ILogger _logger;        
         private readonly ISortingJobRepository _sortingJobRepository;
 
-        public WorkerService(ILogger logger, ISortingJobRepository sortingJobRepository)
+        public Worker(ILogger logger, ISortingJobRepository sortingJobRepository)
         {
             _logger = logger;
             _sortingJobRepository = sortingJobRepository;

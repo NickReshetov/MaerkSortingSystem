@@ -3,7 +3,7 @@ using Maerk.SortingSystem.Dtos;
 
 namespace Maerk.SortingSystem.Worker.Interfaces
 {
-    public interface IWorkerService
+    public interface IWorker
     {
         Task ProcessSortingJobAsync(SortingJobDto sortingJob);
     }
