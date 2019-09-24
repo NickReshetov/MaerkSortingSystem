@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Maerk.SortingSystem.Common.Extensions;
 using Maerk.SortingSystem.DataAccess.EntityFramework.Entities;
 using Maerk.SortingSystem.Dtos;
