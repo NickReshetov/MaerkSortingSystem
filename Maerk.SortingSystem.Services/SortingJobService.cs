@@ -48,7 +48,7 @@ namespace Maerk.SortingSystem.Services
         {
             var clonedCreatedSortingJob = createdSortingJob.Clone();
 
-            var backgroundThread = new Thread(() => _workerService.ProcessSortingJob(clonedCreatedSortingJob))
+            var backgroundThread = new Thread(async () => await _workerService.ProcessSortingJobAsync(clonedCreatedSortingJob))
             {
                 IsBackground = true
             };

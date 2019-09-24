@@ -22,7 +22,7 @@ namespace Maerk.SortingSystem.Worker
             _sortingJobRepository = sortingJobRepository;
         }
 
-        public async Task ProcessSortingJob(SortingJobDto sortingJob)
+        public async Task ProcessSortingJobAsync(SortingJobDto sortingJob)
         {
             sortingJob.TimeStamp = DateTime.UtcNow.ToUnixTimeSeconds();
 
