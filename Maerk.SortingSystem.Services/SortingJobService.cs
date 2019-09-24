@@ -8,6 +8,7 @@ using Maerk.SortingSystem.Services.Exceptions;
 using Maerk.SortingSystem.Services.Extensions;
 using Maerk.SortingSystem.Services.Interfaces;
 using Maerk.SortingSystem.Worker.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Maerk.SortingSystem.Services
 {
@@ -15,9 +16,11 @@ namespace Maerk.SortingSystem.Services
     {
         private readonly ISortingJobRepository _sortingJobRepository;
         private readonly IWorkerService _workerService;
+        private readonly ILogger _logger;
 
-        public SortingJobService(ISortingJobRepository sortingJobRepository, IWorkerService workerService)
+        public SortingJobService(ISortingJobRepository sortingJobRepository, IWorkerService workerService, ILogger logger)
         {
+            _logger = logger;
             _sortingJobRepository = sortingJobRepository;
             _workerService = workerService;
         }
@@ -68,6 +71,8 @@ namespace Maerk.SortingSystem.Services
 
             var sortingJob = _sortingJobRepository.GetSortingJob(sortingJobId);
 
+            ValidateHaveGottenSortingJob(sortingJobId, sortingJob);
+
             return sortingJob;
         }
         
@@ -79,27 +84,61 @@ namespace Maerk.SortingSystem.Services
             {
                 enumeratedSortableSequence = sortableSequence.ToList();
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                throw new CreateSortingJobException("Input array of elements is null!");
+                var errorMessage = "Input array of elements is null!";
+
+                _logger.LogError(errorMessage);
+
+                throw new CreateSortingJobException(errorMessage);
             }
-            
+
             if (!enumeratedSortableSequence.Any())
-                throw new CreateSortingJobException("Input array of elements is empty!");
+            {
+                var errorMessage = "Input array of elements is empty!";
+
+                _logger.LogError(errorMessage);
+
+                throw new CreateSortingJobException(errorMessage);
+            }
 
             return enumeratedSortableSequence;
         }
 
-        private static void ValidateHaveGottenSortingJobs(IEnumerable<SortingJobDto> sortingJobs)
+        private void ValidateHaveGottenSortingJobs(IEnumerable<SortingJobDto> sortingJobs)
         {
             if (sortingJobs == null)
-                throw new GetSortingJobsException("SortingJobs collection is null!");
+            {
+                var errorMessage = "SortingJobs collection is null!";
+
+                _logger.LogError(errorMessage);
+
+                throw new GetSortingJobsException(errorMessage);
+            }
         }
 
         private void ValidateGettingSortingJob(int sortingJobId)
         {
             if (sortingJobId <= 0)
-                throw new GetSortingJobException($"SortingJobId is {sortingJobId}, but should be positive and greater than zero!");
-        }                
+            {
+                var errorMessage = $"SortingJobId is {sortingJobId}, but should be positive and greater than zero!";
+
+                _logger.LogError(errorMessage);
+
+                throw new GetSortingJobException(errorMessage);
+            }
+        }
+
+        private void ValidateHaveGottenSortingJob(int sortingJobId, SortingJobDto sortingJob)
+        {            
+            if (sortingJob == null)
+            {
+                var errorMessage = $"SortingJob with Id {sortingJobId} has not been found, update failed!";
+
+                _logger.LogError(errorMessage);
+
+                throw new GetSortingJobException(errorMessage);
+            }
+        }
     }  
 }
