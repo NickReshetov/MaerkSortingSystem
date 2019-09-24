@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Maerk.SortingSystem.DataAccess.Repositories.Interfaces;
 using Maerk.SortingSystem.Dtos;
 using Maerk.SortingSystem.Services.Exceptions;
@@ -16,17 +18,25 @@ namespace Maerk.SortingSystem.Services
     public class SortingJobService : ISortingJobService
     {
         private readonly ISortingJobRepository _sortingJobRepository;
-        private readonly IWorkerService _workerService;
+        private readonly IWorker _workerService;
         private readonly ILogger _logger;
-
-        public SortingJobService(ISortingJobRepository sortingJobRepository, IWorkerService workerService, ILogger logger)
+        private readonly IMapper _mapper;
+        private readonly ConcurrentQueue<SortingJobDto> _messageQueue;
+        
+        public SortingJobService(ISortingJobRepository sortingJobRepository, 
+            IWorker workerService, 
+            ConcurrentQueue<SortingJobDto> messageQueue,
+            IMapper mapper,
+            ILogger logger)
         {
             _logger = logger;
             _sortingJobRepository = sortingJobRepository;
             _workerService = workerService;
+            _messageQueue = messageQueue;
+            _mapper = mapper;
         }
 
-        public async Task<SortingJobDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence)
+        public async Task<SortingJobStatusDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence)
         {
             var enumeratedSortableSequence = ValidateCreatingSortingJob(sortableSequence);
 
@@ -38,25 +48,19 @@ namespace Maerk.SortingSystem.Services
 
             var createdSortingJob = await _sortingJobRepository.CreateSortingJobAsync(sortingJobDto);
             
-            //Should be replaced by sending a message to message queue
             SendSortingJobToProcess(createdSortingJob);
 
-            return createdSortingJob;
+            var createdSortingJobStatus = _mapper.Map<SortingJobStatusDto>(createdSortingJob);
+
+            return createdSortingJobStatus;
         }
 
         private void SendSortingJobToProcess(SortingJobDto createdSortingJob)
         {
-            var clonedCreatedSortingJob = createdSortingJob.Clone();
-
-            var backgroundThread = new Thread(async () => await _workerService.ProcessSortingJobAsync(clonedCreatedSortingJob))
-            {
-                IsBackground = true
-            };
-
-            backgroundThread.Start();
+            _messageQueue.Enqueue(createdSortingJob);
         }
 
-        public IEnumerable<SortingJobDto> GetSortingJobs()
+        public IEnumerable<SortingJobStatusDto> GetSortingJobs()
         {
             var sortingJobs = _sortingJobRepository
                 ?.GetSortingJobs()
@@ -107,7 +111,7 @@ namespace Maerk.SortingSystem.Services
             return enumeratedSortableSequence;
         }
 
-        private void ValidateHaveGottenSortingJobs(IEnumerable<SortingJobDto> sortingJobs)
+        private void ValidateHaveGottenSortingJobs(IEnumerable<SortingJobStatusDto> sortingJobs)
         {
             if (sortingJobs == null)
             {

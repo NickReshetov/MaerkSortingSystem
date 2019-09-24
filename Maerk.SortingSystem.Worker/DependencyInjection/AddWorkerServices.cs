@@ -9,7 +9,7 @@ namespace Maerk.SortingSystem.Worker.DependencyInjection
     {
         public static IServiceCollection AddWorkerServices(this IServiceCollection services)
         {
-            services.AddSingleton<IWorkerService, WorkerService>();
+            services.AddSingleton<IWorker, Worker>();
 
             return services;
         }

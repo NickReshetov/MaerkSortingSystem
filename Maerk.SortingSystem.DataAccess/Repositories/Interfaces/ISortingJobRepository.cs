@@ -7,7 +7,7 @@ namespace Maerk.SortingSystem.DataAccess.Repositories.Interfaces
 {
     public interface ISortingJobRepository
     {
-        IEnumerable<SortingJobDto> GetSortingJobs();
+        IEnumerable<SortingJobStatusDto> GetSortingJobs();
 
         Task<SortingJobDto> GetSortingJobAsync(int sortingJobId);
 

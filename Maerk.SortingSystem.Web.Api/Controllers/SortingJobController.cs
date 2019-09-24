@@ -18,19 +18,19 @@ namespace Maerk.SortingSystem.Web.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<SortingJobDto> CreateSortingJobAsync([FromBody]IEnumerable<int> sortableSequence)
+        public async Task<SortingJobStatusDto> CreateSortingJobAsync([FromBody]IEnumerable<int> sortableSequence)
         {
-            var sortingJobDto = await _sortingJobService.CreateSortingJobAsync(sortableSequence);
+            var sortingJobStatusDto = await _sortingJobService.CreateSortingJobAsync(sortableSequence);
 
-            return sortingJobDto;
+            return sortingJobStatusDto;
         }
 
         [HttpGet("executions")]
-        public IEnumerable<SortingJobDto> GetSortingJobs()
+        public IEnumerable<SortingJobStatusDto> GetSortingJobs()
         {
-            var sortingJobDtos = _sortingJobService.GetSortingJobs();
+            var sortingJobStatusDtos = _sortingJobService.GetSortingJobs();
 
-            return sortingJobDtos;
+            return sortingJobStatusDtos;
         }
 
         [HttpGet("executions/{sortingJobId:int}")]
