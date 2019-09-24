@@ -1,9 +1,10 @@
-﻿using Maerk.SortingSystem.Dtos;
+﻿using System.Threading.Tasks;
+using Maerk.SortingSystem.Dtos;
 
 namespace Maerk.SortingSystem.Worker.Interfaces
 {
     public interface IWorkerService
     {
-        void ProcessSortingJob(SortingJobDto sortingJob);
+        Task ProcessSortingJob(SortingJobDto sortingJob);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Maerk.SortingSystem.Dtos;
 using Maerk.SortingSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,9 @@ namespace Maerk.SortingSystem.Web.Api.Controllers
         }
 
         [HttpPost]
-        public SortingJobDto CreateSortingJob([FromBody]IEnumerable<int> sortableSequence)
+        public async Task<SortingJobDto> CreateSortingJobAsync([FromBody]IEnumerable<int> sortableSequence)
         {
-            var sortingJobDto = _sortingJobService.CreateSortingJob(sortableSequence);
+            var sortingJobDto = await _sortingJobService.CreateSortingJobAsync(sortableSequence);
 
             return sortingJobDto;
         }
@@ -33,9 +34,9 @@ namespace Maerk.SortingSystem.Web.Api.Controllers
         }
 
         [HttpGet("executions/{sortingJobId:int}")]
-        public SortingJobDto GetSortingJob(int sortingJobId)
+        public async Task<SortingJobDto> GetSortingJobAsync(int sortingJobId)
         {
-            var sortingJobDto = _sortingJobService.GetSortingJob(sortingJobId);
+            var sortingJobDto = await _sortingJobService.GetSortingJobAsync(sortingJobId);
 
             return sortingJobDto;
         }

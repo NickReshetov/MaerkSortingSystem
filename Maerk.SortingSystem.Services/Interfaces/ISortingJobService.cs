@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Maerk.SortingSystem.Dtos;
 
 namespace Maerk.SortingSystem.Services.Interfaces
 {
     public interface ISortingJobService
     {
-        SortingJobDto CreateSortingJob(IEnumerable<int> sortableSequence);
+        Task<SortingJobDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence);
 
-        SortingJobDto GetSortingJob(int sortingJobId);
+        Task<SortingJobDto> GetSortingJobAsync(int sortingJobId);
 
         IEnumerable<SortingJobDto> GetSortingJobs();                
     }

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Maerk.SortingSystem.DataAccess.EntityFramework;
 using Maerk.SortingSystem.DataAccess.EntityFramework.Entities;
 using Maerk.SortingSystem.DataAccess.Repositories.Interfaces;
 using Maerk.SortingSystem.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Maerk.SortingSystem.DataAccess.Repositories
 {
@@ -18,13 +20,13 @@ namespace Maerk.SortingSystem.DataAccess.Repositories
             _mapper = mapper;
         }
 
-        public SortingJobDto CreateSortingJob(SortingJobDto sortingJob)
+        public async Task<SortingJobDto> CreateSortingJobAsync(SortingJobDto sortingJob)
         {
             var sortingJobEntity = _mapper.Map<SortingJob>(sortingJob);
 
             _context.SortingJobs.Add(sortingJobEntity);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             var sortingJobDto = _mapper.Map<SortingJobDto>(sortingJobEntity);
 
@@ -40,34 +42,34 @@ namespace Maerk.SortingSystem.DataAccess.Repositories
             return sortingJobDtos;
         }
 
-        public SortingJobDto GetSortingJob(int sortingJobId)
+        public async Task<SortingJobDto> GetSortingJobAsync(int sortingJobId)
         {
-            var sortingJobEntity = GetSortingJobById(sortingJobId);
+            var sortingJobEntity = await GetSortingJobByIdAsync(sortingJobId);
 
             var sortingJobDto = _mapper.Map<SortingJobDto>(sortingJobEntity);
 
             return sortingJobDto;
         }
 
-        private SortingJob GetSortingJobById(int sortingJobId)
+        private async Task<SortingJob> GetSortingJobByIdAsync(int sortingJobId)
         {
-            var sortingJobEntity = _context.SortingJobs
-                .SingleOrDefault(c => c.Id == sortingJobId);
+            var sortingJobEntity = await _context.SortingJobs
+                .SingleOrDefaultAsync(c => c.Id == sortingJobId);
 
             return sortingJobEntity;
         }
 
         
 
-        public SortingJobDto UpdateSortingJob(SortingJobDto sortingJob)
+        public async Task<SortingJobDto> UpdateSortingJobAsync(SortingJobDto sortingJob)
         {
-            var existingSortingJob = GetSortingJobById(sortingJob.Id);
+            var existingSortingJob = await GetSortingJobByIdAsync(sortingJob.Id);
 
             var sortingJobEntity = _mapper.Map(sortingJob, existingSortingJob);
 
             _context.SortingJobs.Update(sortingJobEntity);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             var updatedSortingJobDto = _mapper.Map<SortingJobDto>(sortingJobEntity);
 

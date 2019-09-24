@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Maerk.SortingSystem.Dtos;
 
 namespace Maerk.SortingSystem.DataAccess.Repositories.Interfaces
@@ -8,10 +9,10 @@ namespace Maerk.SortingSystem.DataAccess.Repositories.Interfaces
     {
         IEnumerable<SortingJobDto> GetSortingJobs();
 
-        SortingJobDto GetSortingJob(int SortingJobId);
+        Task<SortingJobDto> GetSortingJobAsync(int sortingJobId);
 
-        SortingJobDto CreateSortingJob(SortingJobDto sortingJob);
+        Task<SortingJobDto> CreateSortingJobAsync(SortingJobDto sortingJob);
 
-        SortingJobDto UpdateSortingJob(SortingJobDto sortingJob);
+        Task<SortingJobDto> UpdateSortingJobAsync(SortingJobDto sortingJob);
     }
 }

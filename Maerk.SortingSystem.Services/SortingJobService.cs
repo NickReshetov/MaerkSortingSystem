@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Maerk.SortingSystem.DataAccess.Repositories.Interfaces;
 using Maerk.SortingSystem.Dtos;
 using Maerk.SortingSystem.Services.Exceptions;
@@ -25,7 +26,7 @@ namespace Maerk.SortingSystem.Services
             _workerService = workerService;
         }
 
-        public SortingJobDto CreateSortingJob(IEnumerable<int> sortableSequence)
+        public async Task<SortingJobDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence)
         {
             var enumeratedSortableSequence = ValidateCreatingSortingJob(sortableSequence);
 
@@ -35,8 +36,9 @@ namespace Maerk.SortingSystem.Services
                 Status = Status.Pending.ToString()
             };
 
-            var createdSortingJob = _sortingJobRepository.CreateSortingJob(sortingJobDto);
-
+            var createdSortingJob = await _sortingJobRepository.CreateSortingJobAsync(sortingJobDto);
+            
+            //Should be replaced by sending a message to message queue
             SendSortingJobToProcess(createdSortingJob);
 
             return createdSortingJob;
@@ -65,11 +67,11 @@ namespace Maerk.SortingSystem.Services
             return sortingJobs;
         }
 
-        public SortingJobDto GetSortingJob(int sortingJobId)
+        public async Task<SortingJobDto> GetSortingJobAsync(int sortingJobId)
         {
             ValidateGettingSortingJob(sortingJobId);
 
-            var sortingJob = _sortingJobRepository.GetSortingJob(sortingJobId);
+            var sortingJob = await _sortingJobRepository.GetSortingJobAsync(sortingJobId);
 
             ValidateHaveGottenSortingJob(sortingJobId, sortingJob);
 

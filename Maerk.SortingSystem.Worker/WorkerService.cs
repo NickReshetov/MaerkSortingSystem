@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Maerk.SortingSystem.Common.Extensions;
 using Maerk.SortingSystem.DataAccess.Repositories.Interfaces;
 using Maerk.SortingSystem.Dtos;
@@ -21,7 +22,7 @@ namespace Maerk.SortingSystem.Worker
             _sortingJobRepository = sortingJobRepository;
         }
 
-        public void ProcessSortingJob(SortingJobDto sortingJob)
+        public async Task ProcessSortingJob(SortingJobDto sortingJob)
         {
             sortingJob.TimeStamp = DateTime.UtcNow.ToUnixTimeSeconds();
 
@@ -35,7 +36,7 @@ namespace Maerk.SortingSystem.Worker
             sortingJob.Status = Status.Completed.ToString();
             sortingJob.Duration = stopwatch.Elapsed.TotalMilliseconds;
             
-            UpdateSortingJob(sortingJob);
+            await UpdateSortingJobAsync(sortingJob);
         }
 
         private IEnumerable<int> SortSequence(IEnumerable<int> sortingJobInput)
@@ -45,11 +46,11 @@ namespace Maerk.SortingSystem.Worker
             return sortedSequence;
         }
 
-        private SortingJobDto UpdateSortingJob(SortingJobDto sortingJob)
+        private async Task<SortingJobDto> UpdateSortingJobAsync(SortingJobDto sortingJob)
         {
             ValidateUpdatingSortingJob(sortingJob);
 
-            var updatedSearchingJob = _sortingJobRepository.UpdateSortingJob(sortingJob);
+            var updatedSearchingJob = await _sortingJobRepository.UpdateSortingJobAsync(sortingJob);
 
             return updatedSearchingJob;
         }
@@ -65,7 +66,7 @@ namespace Maerk.SortingSystem.Worker
                 throw new UpdateSortingJobException(errorMessage);
             }
 
-            var existingSortingJob = _sortingJobRepository.GetSortingJob(sortingJob.Id);
+            var existingSortingJob = _sortingJobRepository.GetSortingJobAsync(sortingJob.Id);
 
             if (existingSortingJob == null)
             {
