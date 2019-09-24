@@ -33,11 +33,11 @@ namespace Maerk.SortingSystem.DataAccess.Repositories
             return sortingJobDto;
         }
 
-        public IEnumerable<SortingJobDto> GetSortingJobs()
+        public IEnumerable<SortingJobStatusDto> GetSortingJobs()
         {
             var sortingJobEntities = _context.SortingJobs;
 
-            var sortingJobDtos = _mapper.Map<IEnumerable<SortingJobDto>>(sortingJobEntities);
+            var sortingJobDtos = _mapper.Map<IEnumerable<SortingJobStatusDto>>(sortingJobEntities);
 
             return sortingJobDtos;
         }

@@ -6,10 +6,10 @@ namespace Maerk.SortingSystem.Services.Interfaces
 {
     public interface ISortingJobService
     {
-        Task<SortingJobDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence);
+        Task<SortingJobStatusDto> CreateSortingJobAsync(IEnumerable<int> sortableSequence);
 
         Task<SortingJobDto> GetSortingJobAsync(int sortingJobId);
 
-        IEnumerable<SortingJobDto> GetSortingJobs();                
+        IEnumerable<SortingJobStatusDto> GetSortingJobs();                
     }
 }
