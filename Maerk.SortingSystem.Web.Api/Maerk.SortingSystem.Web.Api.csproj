@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Maerk.SortingSystem.Dtos\Maerk.SortingSystem.Dtos.csproj" />
     <ProjectReference Include="..\Maerk.SortingSystem.Services\Maerk.SortingSystem.Services.csproj" />
+    <ProjectReference Include="..\Maerk.SortingSystem.Worker\Maerk.SortingSystem.Worker.csproj" />
   </ItemGroup>
 
 </Project>

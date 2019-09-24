@@ -9,9 +9,6 @@ namespace Maerk.SortingSystem.Services.Interfaces
 
         SortingJobDto GetSortingJob(int sortingJobId);
 
-        IEnumerable<SortingJobDto> GetSortingJobs();
-
-        SortingJobDto UpdateSortingJob(SortingJobDto sortingJob);
-        
+        IEnumerable<SortingJobDto> GetSortingJobs();                
     }
 }

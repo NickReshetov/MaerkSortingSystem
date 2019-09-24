@@ -8,7 +8,7 @@ namespace Maerk.SortingSystem.DataAccess.EntityFramework.Entities
         [Required]
         public DateTime TimeStamp { get; set; }
 
-        public DateTimeOffset Duration { get; set; }
+        public double Duration { get; set; }
 
         [Required]
         //Generally should a dictionary table int the DB, but has been made string for the simplicity

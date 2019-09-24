@@ -10,7 +10,7 @@ namespace Maerk.SortingSystem.Dtos
 
         public long TimeStamp { get; set; }
 
-        public long Duration { get; set; }
+        public double Duration { get; set; }
 
         public string Status { get; set; }
 

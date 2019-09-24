@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Maerk.SortingSystem.DataAccess.Extensions
+namespace Maerk.SortingSystem.Common.Extensions
 {
     public static class DateTimeExtensions
     {
@@ -23,7 +21,5 @@ namespace Maerk.SortingSystem.DataAccess.Extensions
 
             return convertedTimeStampToDateTime;
         }
-    }
-
-    
+    } 
 }

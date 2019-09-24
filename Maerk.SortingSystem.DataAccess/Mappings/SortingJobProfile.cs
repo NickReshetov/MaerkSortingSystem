@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
+using Maerk.SortingSystem.Common.Extensions;
 using Maerk.SortingSystem.DataAccess.EntityFramework.Entities;
-using Maerk.SortingSystem.DataAccess.Extensions;
 using Maerk.SortingSystem.Dtos;
 using Newtonsoft.Json;
 
@@ -12,14 +12,12 @@ namespace Maerk.SortingSystem.DataAccess.Mappings
         public SortingJobProfile()
         {
             CreateMap<SortingJob, SortingJobDto>()
-                .ForMember(dest => dest.TimeStamp, opt => opt.MapFrom(s => s.TimeStamp.ToUnixTimeSeconds()))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(s => s.Duration.ToUnixTimeSeconds()))
+                .ForMember(dest => dest.TimeStamp, opt => opt.MapFrom(s => s.TimeStamp.ToUnixTimeSeconds()))                
                 .ForMember(dest => dest.Input, opt => opt.MapFrom(s => JsonConvert.DeserializeObject(s.Input)))
                 .ForMember(dest => dest.Output, opt => opt.MapFrom(s => JsonConvert.DeserializeObject(s.Output)));
 
             CreateMap<SortingJobDto,SortingJob>()
-                .ForMember(dest => dest.TimeStamp, opt => opt.MapFrom(s => s.TimeStamp.ToDateTime()))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(s => DateTimeOffset.FromUnixTimeSeconds(s.Duration)))
+                .ForMember(dest => dest.TimeStamp, opt => opt.MapFrom(s => s.TimeStamp.ToDateTime()))                
                 .ForMember(dest => dest.Input, opt => opt.MapFrom(s => JsonConvert.SerializeObject(s.Input)))
                 .ForMember(dest => dest.Output, opt => opt.MapFrom(s => JsonConvert.SerializeObject(s.Output)));
 

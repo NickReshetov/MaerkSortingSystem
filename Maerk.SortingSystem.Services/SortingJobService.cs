@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Maerk.SortingSystem.DataAccess.Repositories.Interfaces;
 using Maerk.SortingSystem.Dtos;
 using Maerk.SortingSystem.Services.Exceptions;
+using Maerk.SortingSystem.Services.Extensions;
 using Maerk.SortingSystem.Services.Interfaces;
+using Maerk.SortingSystem.Worker.Interfaces;
 
 namespace Maerk.SortingSystem.Services
 {
     public class SortingJobService : ISortingJobService
     {
         private readonly ISortingJobRepository _sortingJobRepository;
+        private readonly IWorkerService _workerService;
 
-        public SortingJobService(ISortingJobRepository sortingJobRepository)
+        public SortingJobService(ISortingJobRepository sortingJobRepository, IWorkerService workerService)
         {
             _sortingJobRepository = sortingJobRepository;
+            _workerService = workerService;
         }
 
         public SortingJobDto CreateSortingJob(IEnumerable<int> sortableSequence)
@@ -29,7 +34,21 @@ namespace Maerk.SortingSystem.Services
 
             var createdSortingJob = _sortingJobRepository.CreateSortingJob(sortingJobDto);
 
+            SendSortingJobToProcess(createdSortingJob);
+
             return createdSortingJob;
+        }
+
+        private void SendSortingJobToProcess(SortingJobDto createdSortingJob)
+        {
+            var clonedCreatedSortingJob = createdSortingJob.Clone();
+
+            var backgroundThread = new Thread(() => _workerService.ProcessSortingJob(clonedCreatedSortingJob))
+            {
+                IsBackground = true
+            };
+
+            backgroundThread.Start();
         }
 
         public IEnumerable<SortingJobDto> GetSortingJobs()
@@ -51,16 +70,7 @@ namespace Maerk.SortingSystem.Services
 
             return sortingJob;
         }
-
-        public SortingJobDto UpdateSortingJob(SortingJobDto sortingJob)
-        {
-            ValidateUpdatingSortingJob(sortingJob);
-
-            var updatedSearchingJob = _sortingJobRepository.UpdateSortingJob(sortingJob);
-
-            return updatedSearchingJob;
-        }
-
+        
         private IEnumerable<int> ValidateCreatingSortingJob(IEnumerable<int> sortableSequence)
         {
             List<int> enumeratedSortableSequence;
@@ -90,22 +100,6 @@ namespace Maerk.SortingSystem.Services
         {
             if (sortingJobId <= 0)
                 throw new GetSortingJobException($"SortingJobId is {sortingJobId}, but should be positive and greater than zero!");
-        }
-
-        private void ValidateUpdatingSortingJob(SortingJobDto sortingJob)
-        {
-            ValidateSortingJob(sortingJob);
-
-            var existingSortingJob = _sortingJobRepository.GetSortingJob(sortingJob.Id);
-
-            if (existingSortingJob == null)
-                throw new UpdateSortingJobException($"SortingJob with Id {sortingJob.Id} has not been found, update failed!");
-        }
-
-        private static void ValidateSortingJob(SortingJobDto sortingJob)
-        {
-            if (sortingJob == null)
-                throw new UpdateSortingJobException("SortingJob is null, update failed!");
-        }
+        }                
     }  
 }

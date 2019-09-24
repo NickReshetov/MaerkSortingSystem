@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.DataAcc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maerk.SortingSystem.Web.Api", "Maerk.SortingSystem.Web.Api\Maerk.SortingSystem.Web.Api.csproj", "{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maerk.SortingSystem.Worker", "Maerk.SortingSystem.Worker\Maerk.SortingSystem.Worker.csproj", "{45A4377A-78A4-476F-9204-6BACE18B962B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maerk.SortingSystem.Common", "Maerk.SortingSystem.Common\Maerk.SortingSystem.Common.csproj", "{B7524B4E-2062-4FD3-85D1-F494D5FFE490}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8B0BE3F-E665-4B92-A2E3-7DCFF5D5A6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A4377A-78A4-476F-9204-6BACE18B962B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A4377A-78A4-476F-9204-6BACE18B962B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A4377A-78A4-476F-9204-6BACE18B962B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A4377A-78A4-476F-9204-6BACE18B962B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7524B4E-2062-4FD3-85D1-F494D5FFE490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7524B4E-2062-4FD3-85D1-F494D5FFE490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7524B4E-2062-4FD3-85D1-F494D5FFE490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7524B4E-2062-4FD3-85D1-F494D5FFE490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

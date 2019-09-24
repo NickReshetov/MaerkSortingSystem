@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Maerk.SortingSystem.Common\Maerk.SortingSystem.Common.csproj" />
     <ProjectReference Include="..\Maerk.SortingSystem.Dtos\Maerk.SortingSystem.Dtos.csproj" />
   </ItemGroup>
 

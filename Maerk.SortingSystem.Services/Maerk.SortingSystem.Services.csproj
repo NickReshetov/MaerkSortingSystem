@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maerk.SortingSystem.DataAccess\Maerk.SortingSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\Maerk.SortingSystem.Worker\Maerk.SortingSystem.Worker.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@ using AutoMapper;
 using Maerk.SortingSystem.DataAccess.DependencyInjection;
 using Maerk.SortingSystem.Services.DependencyInjection;
 using Maerk.SortingSystem.Web.Api.Extensions;
+using Maerk.SortingSystem.Worker.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,9 +32,13 @@ namespace Maerk.SortingSystem.Web.Api
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
+            services.AddSingleton(_logger);
+
             services.AddAutoMapper(assemblies);
 
             services.AddServices();
+
+            services.AddWorkerServices();
 
             services.AddDataAccess();
 
