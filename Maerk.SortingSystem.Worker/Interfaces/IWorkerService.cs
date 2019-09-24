@@ -5,6 +5,6 @@ namespace Maerk.SortingSystem.Worker.Interfaces
 {
     public interface IWorkerService
     {
-        Task ProcessSortingJob(SortingJobDto sortingJob);
+        Task ProcessSortingJobAsync(SortingJobDto sortingJob);
     }
 }
